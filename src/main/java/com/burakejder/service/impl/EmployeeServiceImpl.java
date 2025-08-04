@@ -2,6 +2,9 @@ package com.burakejder.service.impl;
 
 import com.burakejder.dto.DtoDepartment;
 import com.burakejder.dto.DtoEmployee;
+import com.burakejder.exception.BaseException;
+import com.burakejder.exception.ErrorMessage;
+import com.burakejder.exception.MessageType;
 import com.burakejder.model.Department;
 import com.burakejder.model.Employee;
 import com.burakejder.repository.EmployeeRepository;
@@ -30,7 +33,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
         Optional<Employee> optional = employeeRepository.findById(id);
 
         if (optional.isEmpty()){
-            return null;
+            throw new BaseException(new ErrorMessage(MessageType.NO_RECORD_EXISTS,id.toString()));
         }
 
         Employee employee = optional.get();
